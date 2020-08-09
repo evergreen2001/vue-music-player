@@ -9,10 +9,9 @@
       <span>{{current.artist}}</span>
     </h2>
 
-
     <button>Prev</button>
-    <button>Pause</button>
-    <button>play</button>
+    <button v-if="isNowPlaying">Pause</button>
+    <button v-else>play</button>
 
     <button>Next</button>
   </div>
@@ -37,34 +36,41 @@ export default {
         {
           title: "ojoro",
           artist: "Terri",
-          src:require("./assets/Terri-Ojoro.mp3") 
+          src: require("./assets/Terri-Ojoro.mp3")
         }
       ],
-      player: new Audio()
+      player: new Audio(),
+      isNowPlaying: false
     };
   },
 
   created() {
     this.current = this.songs[0];
     this.player.src = this.current.src;
-    this.player.play();
+   
   },
-  components: {}
+  components: {},
+  methosd: {
+
+play(){
+
+  this.player.play()
+}
+
+  }
 };
 </script>
 
 <style>
-
-*{
-  margin:0;
-  padding:0
+* {
+  margin: 0;
+  padding: 0;
 }
-body{
-
-margin:auto
+body {
+  margin: auto;
+  margin: ;
 }
-button{
-
-  margin:10px;
+button {
+  margin: 10px;
 }
 </style>
