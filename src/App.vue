@@ -10,8 +10,8 @@
     </h2>
 
     <button>Prev</button>
-    <button v-if="isNowPlaying">Pause</button>
-    <button v-else>play</button>
+    <button v-if="!isNowPlaying" @click="pause()">Pause</button>
+    <button v-else @click="play()">play</button>
 
     <button>Next</button>
   </div>
@@ -40,23 +40,30 @@ export default {
         }
       ],
       player: new Audio(),
-      isNowPlaying: false
+      isNowPlaying: true,
+      song: null
     };
   },
 
   created() {
-    this.current = this.songs[0];
+    this.current = this.songs[this.index];
     this.player.src = this.current.src;
-   
   },
   components: {},
-  methosd: {
+  methods: {
+    play(song) {
+      if ( typeof song.src != "undefined") {
+        this.current = song;
+        this.player.src = this.current.src;
+      }
+      this.player.play();
+      this.isNowPlaying = false;
+    },
 
-play(){
-
-  this.player.play()
-}
-
+    pause() {
+      this.player.pause();
+      this.isNowPlaying = true;
+    }
   }
 };
 </script>
@@ -68,7 +75,6 @@ play(){
 }
 body {
   margin: auto;
-  margin: ;
 }
 button {
   margin: 10px;
